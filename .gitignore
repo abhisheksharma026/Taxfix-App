@@ -1,0 +1,42 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Ignore virtual environments
+venv/
+.env
+.envrc
+*.venv
+
+# Ignore Poetry virtual environments
+.poetry/
+poetry.lock
+
+# Ignore Docker-related files
+docker-compose.override.yml
+*.pid
+*.sock
+*.log
+
+# Ignore dataset and model files
+data/
+models/
+*.pkl
+*.h5
+*.onnx
+*.joblib
+
+# Ignore IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Ignore application logs
+logs/
+*.log
+app.log
+errors.log
