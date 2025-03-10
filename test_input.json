@@ -1,0 +1,12 @@
+{
+    "age": 30,
+    "income": 50000,
+    "employment_type": "full-time",
+    "marital_status": "single",
+    "time_spent_on_platform": 120.5,
+    "number_of_sessions": 10,
+    "fields_filled_percentage": 80.0,
+    "previous_year_filing": 1,
+    "device_type": "mobile",
+    "referral_source": "friend"
+}
