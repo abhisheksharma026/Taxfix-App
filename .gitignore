@@ -40,3 +40,6 @@ logs/
 *.log
 app.log
 errors.log
+
+# Ignore CatBoost generated files
+catboost_info/
