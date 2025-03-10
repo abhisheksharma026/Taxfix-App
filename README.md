@@ -57,4 +57,36 @@ POST request to /predict with the following JSON body:
     "previous_year_filing": 1,
     "device_type": "mobile",
     "referral_source": "friend_referral"
-}```
+}
+```
+
+### Possible Next Steps for a complete application workflow:
+
+#### Automate the Development Workflow with GitHub Actions
+- Implement CI/CD pipeline for automated testing, building, and deployment.
+- Run tests & linting on each pull request before merging.
+- Push Docker images to AWS/GCP/Azure registry and deploy automatically
+
+#### Implement Infrastructure as Code (IaC)
+- Use Terraform or AWS CloudFormation to automate the provisioning of ECS clusters, API gateways, and load balancers.
+
+#### Enhance Observability & Monitoring
+- Add structured logging (e.g., JSON logs) using Loguru for better insights.
+- Integrate monitoring tools:
+    - Prometheus + Grafana for real-time API health tracking.
+    - AWS CloudWatch / GCP Stackdriver for system performance.
+    - Sentry / Datadog for application error tracking.
+ 
+#### Add Rate Limiting & API Security
+- Rate-limiting middleware (FastAPI-limiter + Redis).
+
+#### Automate Model Monitoring & Retraining
+- Set up drift detection using Evidently AI.
+- Retrain models periodically using a scheduled CI/CD pipeline.
+- Deploy new models incrementally with A/B testing before full rollout.
+
+#### Improve Scalability & Resilience
+- Use Kubernetes (EKS/GKE/AKS) instead of standalone Docker containers.
+- Enable autoscaling policies for handling unpredictable traffic loads.
+- Deploy API gateways & CDN caching for faster response times.
+
