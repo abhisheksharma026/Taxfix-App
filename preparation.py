@@ -1,8 +1,8 @@
-from collection import load_data
+from collection import load_data, load_data_from_db
 import pandas as pd
 
 def process_input():
-    df = load_data()
+    df = load_data_from_db()
     df["sessions_per_minute"] = df["number_of_sessions"] / (df["time_spent_on_platform"] + 1)
     df["fields_filled_x_sessions"] = df["fields_filled_percentage"] * df["number_of_sessions"]
     
