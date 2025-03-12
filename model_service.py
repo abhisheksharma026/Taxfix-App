@@ -1,12 +1,12 @@
 import pandas as pd
-from pathlib import Path
 import joblib
+from loguru import logger
+from pathlib import Path
+from catboost import Pool
+
 from model import build_model
 from config import settings
-from catboost import Pool
 from preparation import process_features
-from config import settings
-from loguru import logger
 
 class ModelService:
     def __init__(self):

@@ -1,5 +1,5 @@
-from collection import load_data, load_data_from_db
 import pandas as pd
+from collection import load_data, load_data_from_db
 
 def process_input():
     df = load_data_from_db()

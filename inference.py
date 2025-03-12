@@ -1,12 +1,14 @@
-from fastapi import FastAPI, HTTPException
 import joblib
 import psutil
-import nest_asyncio
 import subprocess
-from config import settings
+import nest_asyncio
+
 from pydantic import BaseModel, conint, confloat, constr
 import pandas as pd
 from loguru import logger
+from fastapi import FastAPI, HTTPException
+
+from config import settings
 from preparation import process_features
 
 app = FastAPI()

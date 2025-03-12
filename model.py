@@ -1,12 +1,13 @@
-from preparation import process_input
-from config import settings
+import os
+
 from catboost import CatBoostClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 import joblib
-import os
 from loguru import logger
-from preparation import process_features
+
+from config import settings
+from preparation import process_input, process_features
 
 def build_model():
     df = process_input()
