@@ -13,6 +13,7 @@ def build_model():
     df = process_input()
     X, y = get_X_y(df)
     X = process_features(X)
+    logger.info(f"Model training columns: {X.columns.tolist()}")
     X_train, X_test, X_inference, y_train, y_test, y_inference = split_train_test(X, y)
     model = train_model(X_train, y_train)
     f1_score = evaluate_model(model, X_test, y_test)

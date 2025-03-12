@@ -1,14 +1,42 @@
+"""
+This module provides functions for preprocessing input data.
+It includes functions to load data, process database records, and apply feature 
+engineering transformations.
+
+Functions:
+    - process_input(): Loads and processes data from the database.
+    - process_features(X): Prepares and transforms input features for the model.
+"""
+
 import pandas as pd
-from collection import load_data, load_data_from_db
+from collection import load_data #, load_data_from_db
 
 def process_input():
-    df = load_data_from_db()
+    """
+    Loads data from the database and applies feature engineering transformations.
+
+    Returns:
+        pd.DataFrame: A DataFrame containing processed user data with additional features.
+    """
+    df = load_data()
     df["sessions_per_minute"] = df["number_of_sessions"] / (df["time_spent_on_platform"] + 1)
     df["fields_filled_x_sessions"] = df["fields_filled_percentage"] * df["number_of_sessions"]
     
     return df
 
 def process_features(X):
+    """
+    Processes input data by converting data types and applying feature transformations.
+
+    Args:
+        X (list or pd.DataFrame): The input data to be processed. If a list is provided, 
+                                  it is converted to a DataFrame.
+
+    Returns:
+        pd.DataFrame: The transformed DataFrame with appropriate feature types and 
+                      engineered features.
+    """
+
     if isinstance(X, list):
         X = pd.DataFrame(X)
     X['age'] = X['age'].astype(int)
