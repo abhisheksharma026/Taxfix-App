@@ -1,6 +1,7 @@
 import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import DirectoryPath, FilePath
+from sqlalchemy import create_engine
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
@@ -33,5 +34,7 @@ class Settings(BaseSettings):
     "device_type": "mobile",
     "referral_source": "friend_referral"
     }          
+
+engine = create_engine('sqlite:///data/db.sqlite')
 
 settings = Settings()

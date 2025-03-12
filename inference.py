@@ -10,6 +10,9 @@ from loguru import logger
 from preparation import process_features
 
 app = FastAPI()
+# To test inference API
+# poetry run uvicorn inference:app --reload
+# curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d @test_input.json
 
 def load_model():
     try:
@@ -52,7 +55,7 @@ class TaxFilingInput(BaseModel):
 def process_input(data: TaxFilingInput):
     df = pd.DataFrame([data.model_dump()])
     df = process_features(df)
-    logger.info(f"Processed input data: {df}")
+    logger.info(f"Processed input data")
     return df
 
 @app.get("/")

@@ -214,3 +214,12 @@ UnboundLocalError: cannot access local variable 'test_df' where it is not associ
 0   30  50000.0  ...                   0                      800
 
 [1 rows x 12 columns]
+2025-03-12 10:08:17.122 | INFO     | __main__:main:12 - Starting model service
+2025-03-12 10:08:17.123 | INFO     | model_service:load_model:18 - Model catboost_model_v1.pkl not found
+2025-03-12 10:08:17.123 | INFO     | collection:load_data_from_db:12 - Loading data from database
+2025-03-12 10:08:17.177 | INFO     | model:train_model:32 - Training model
+2025-03-12 10:08:18.418 | INFO     | model:evaluate_model:48 - F1 score: 0.7500699066347629
+2025-03-12 10:08:18.420 | INFO     | model:save_model:54 - Saving model into directory
+2025-03-12 10:08:18.420 | INFO     | model_service:load_model:20 - Model catboost_model_v1.pkl trained and saved
+2025-03-12 10:08:18.429 | INFO     | __main__:main:16 - Prediction on test data from config: [1]
+2025-03-12 10:08:18.433 | INFO     | __main__:main:25 - Prediction on test json: [1]
