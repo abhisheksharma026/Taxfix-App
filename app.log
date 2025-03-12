@@ -226,3 +226,6 @@ UnboundLocalError: cannot access local variable 'test_df' where it is not associ
 2025-03-12 10:55:26.514 | INFO     | __main__:main:12 - Starting model service
 2025-03-12 10:55:26.538 | INFO     | __main__:main:16 - Prediction on test data from config: [1]
 2025-03-12 10:55:26.543 | INFO     | __main__:main:25 - Prediction on test json: [1]
+2025-03-12 11:33:24.343 | INFO     | __main__:main:12 - Starting model service
+2025-03-12 11:33:24.366 | INFO     | __main__:main:16 - Prediction on test data from config: [1]
+2025-03-12 11:33:24.370 | INFO     | __main__:main:25 - Prediction on test json: [1]
