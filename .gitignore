@@ -28,6 +28,7 @@ models/
 *.h5
 *.onnx
 *.joblib
+db.sqlite
 
 # Ignore IDE & OS files
 .vscode/
