@@ -1,6 +1,6 @@
 import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import DirectoryPath, FilePath
+from pydantic import DirectoryPath
 from sqlalchemy import create_engine
 
 class Settings(BaseSettings):
@@ -33,8 +33,9 @@ class Settings(BaseSettings):
     "previous_year_filing": 1,
     "device_type": "mobile",
     "referral_source": "friend_referral"
-    }          
-
-engine = create_engine('sqlite:///data/db.sqlite')
+    }
+    db_conn_str: str = "sqlite:///db.sqlite"
+    table_name: str = "dataset"
 
 settings = Settings()
+engine = create_engine(settings.db_conn_str)

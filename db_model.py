@@ -1,11 +1,12 @@
 from sqlalchemy import REAL, INTEGER, VARCHAR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from config import settings
 
 class Base(DeclarativeBase):
     pass
 
 class TaxFix(Base):
-    __tablename__ = 'dataset'
+    __tablename__ = settings.table_name
 
     age: Mapped[int] = mapped_column(INTEGER(), primary_key=True)
     income: Mapped[float] = mapped_column(REAL())
