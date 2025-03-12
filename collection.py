@@ -1,6 +1,6 @@
 import pandas as pd
 from loguru import logger
-from config import settings, engine
+from config import settings
 from db_model import TaxFix
 from sqlalchemy import select
 
