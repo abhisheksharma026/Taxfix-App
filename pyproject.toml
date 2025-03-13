@@ -6,6 +6,7 @@ authors = [
     {name = "anotherBadCode",email = "abhisheksharma026@gmail.com"}
 ]
 readme = "README.md"
+packages = []
 requires-python = ">=3.11,<4.0"
 dependencies = [
     "pandas (>=2.2.3,<3.0.0)",
@@ -19,10 +20,30 @@ dependencies = [
     "psutil (>=7.0.0,<8.0.0)",
     "nest-asyncio (>=1.6.0,<2.0.0)",
     "uvicorn (>=0.34.0,<0.35.0)",
-    "sqlalchemy (>=2.0.39,<3.0.0)"
+    "sqlalchemy (>=2.0.39,<3.0.0)",
+    "ruff (>=0.9.10,<0.10.0)",
+    "black (>=25.1.0,<26.0.0)"
 ]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 package-mode = false
+
+[tool.ruff]
+exclude = [
+    "src/config/__init__.py",
+    "src/app.log",
+    "src/model/models",
+    "src/config/.env"
+    ]
+extend-ignore = [
+    "E203",
+    "E302",
+    "W503",
+    "E501",
+    "W291",
+    "E128"
+    ]
+[tool.black]
+skip-string-normalization = true

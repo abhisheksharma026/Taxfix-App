@@ -1,11 +1,12 @@
 """
-This module provides functions to load data from a CSV file or a database 
+This module provides functions to load data from a CSV file or a database
 for the TaxFix application.
 
 Functions:
     load_data(path): Loads data from a specified CSV file path.
     load_data_from_db(): Loads data from the database using SQLAlchemy.
 """
+
 import pandas as pd
 from loguru import logger
 from sqlalchemy import select
@@ -13,12 +14,13 @@ from sqlalchemy import select
 from db.db_model import TaxFix
 from config.config import settings, engine
 
+
 def load_data(path=settings.data_path):
     """
     Load data from a CSV file.
 
     Args:
-        path (str, optional): The file path of the CSV to load. 
+        path (str, optional): The file path of the CSV to load.
                               Defaults to `settings.data_path`.
 
     Returns:
@@ -26,6 +28,7 @@ def load_data(path=settings.data_path):
     """
     logger.info(f"Loading data from {path}")
     return pd.read_csv(path)
+
 
 def load_data_from_db():
     """
@@ -37,6 +40,6 @@ def load_data_from_db():
     Returns:
         pd.DataFrame: A pandas DataFrame containing the retrieved data.
     """
-    logger.info(f"Loading data from database")
+    logger.info("Loading data from database")
     query = select(TaxFix)
     return pd.read_sql(query, engine)

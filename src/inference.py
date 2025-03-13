@@ -1,6 +1,6 @@
 """
-This module defines an API using FastAPI for performing tax filing predictions. 
-It loads a pre-trained machine learning model and processes user input data 
+This module defines an API using FastAPI for performing tax filing predictions.
+It loads a pre-trained machine learning model and processes user input data
 before making predictions.
 
 Endpoints:
@@ -20,9 +20,6 @@ Classes:
 """
 
 import joblib
-import psutil
-import subprocess
-import nest_asyncio
 
 from pydantic import BaseModel, conint, confloat, constr
 import pandas as pd
@@ -37,13 +34,14 @@ app = FastAPI()
 # poetry run uvicorn inference:app --reload
 # curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d @test_input.json
 
+
 def load_model():
     """
     Load the pre-trained tax filing prediction model.
 
     Returns:
         model: The trained machine learning model.
-    
+
     Raises:
         HTTPException: If the model fails to load.
     """
@@ -56,6 +54,7 @@ def load_model():
         raise HTTPException(status_code=500, detail="Model loading failed")
 
     return joblib.load(settings.model_path)
+
 
 class TaxFilingInput(BaseModel):
     """
@@ -97,9 +96,10 @@ class TaxFilingInput(BaseModel):
                 "fields_filled_percentage": 80.0,
                 "previous_year_filing": 1,
                 "device_type": "mobile",
-                "referral_source": "friend"
+                "referral_source": "friend",
             }
         }
+
 
 def process_input(data: TaxFilingInput):
     """
@@ -116,6 +116,7 @@ def process_input(data: TaxFilingInput):
     # logger.info(f"Processed input data")
     return df
 
+
 @app.get("/")
 async def read_root():
     """
@@ -126,6 +127,7 @@ async def read_root():
     """
     return {"message": "Welcome to the TaxFix API"}
 
+
 @app.get("/health")
 async def health_check():
     """
@@ -135,6 +137,7 @@ async def health_check():
         dict: API status message.
     """
     return {"status": "API is running"}
+
 
 # Prediction endpoint
 @app.post("/predict")
@@ -147,7 +150,7 @@ async def predict(input_data: TaxFilingInput):
 
     Returns:
         dict: The predicted tax filing completion status.
-    
+
     Raises:
         HTTPException: If prediction fails due to processing errors.
     """
@@ -161,4 +164,3 @@ async def predict(input_data: TaxFilingInput):
     except Exception as e:
         logger.error(f"Error during prediction: {e}")
         raise HTTPException(status_code=500, detail="Prediction failed")
-    

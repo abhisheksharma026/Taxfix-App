@@ -5,23 +5,27 @@ Classes:
     Base: Declarative base class for SQLAlchemy models.
     TaxFix: Represents the TaxFix table in the database, containing user-related tax filing data.
 """
+
 from sqlalchemy import REAL, INTEGER, VARCHAR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from config.config import settings
 
+
 class Base(DeclarativeBase):
     """
     Declarative base class for all SQLAlchemy models.
-    
+
     This class serves as a base for defining ORM models using SQLAlchemy's declarative approach.
     """
+
     pass
+
 
 class TaxFix(Base):
     """
     SQLAlchemy ORM model for the TaxFix table.
 
-    This model represents user data related to tax filing, including demographic details, 
+    This model represents user data related to tax filing, including demographic details,
     platform usage behavior, and tax-filing history.
 
     Attributes:
@@ -37,6 +41,7 @@ class TaxFix(Base):
         referral_source (str): The source from which the user was referred (e.g., friend, ad).
         completed_filing (int): Whether the user completed the tax filing process (1 = Yes, 0 = No).
     """
+
     __tablename__ = settings.table_name
 
     age: Mapped[int] = mapped_column(INTEGER(), primary_key=True)
