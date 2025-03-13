@@ -9,7 +9,7 @@ Functions:
 """
 
 import pandas as pd
-from collection import load_data #, load_data_from_db
+from model.pipeline.collection import load_data #, load_data_from_db
 
 def process_input():
     """

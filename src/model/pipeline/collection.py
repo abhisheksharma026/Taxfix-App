@@ -10,8 +10,8 @@ import pandas as pd
 from loguru import logger
 from sqlalchemy import select
 
-from db_model import TaxFix
-from config import settings, engine
+from db.db_model import TaxFix
+from config.config import settings, engine
 
 def load_data(path=settings.data_path):
     """

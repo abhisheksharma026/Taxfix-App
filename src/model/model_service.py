@@ -17,9 +17,9 @@ from loguru import logger
 from pathlib import Path
 from catboost import Pool
 
-from model import build_model
-from config import settings
-from preparation import process_features
+from model.pipeline.model import build_model
+from config.config import settings
+from model.pipeline.preparation import process_features
 
 class ModelService:
     """

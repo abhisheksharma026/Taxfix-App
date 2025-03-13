@@ -6,8 +6,8 @@ from sklearn.metrics import classification_report
 import joblib
 from loguru import logger
 
-from config import settings
-from preparation import process_input, process_features
+from config.config import settings
+from model.pipeline.preparation import process_input, process_features
 
 def build_model():
     df = process_input()

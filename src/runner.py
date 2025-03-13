@@ -12,9 +12,9 @@ import json
 import pandas as pd
 from loguru import logger
 
-from model_service import ModelService
-from config import settings
-from preparation import process_features
+from model.model_service import ModelService
+from config.config import settings
+from model.pipeline.preparation import process_features
 
 logger.add('app.log', rotation='1 MB', level='INFO', backtrace=True, diagnose=True)
 

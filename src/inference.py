@@ -29,8 +29,8 @@ import pandas as pd
 from loguru import logger
 from fastapi import FastAPI, HTTPException
 
-from config import settings
-from preparation import process_features
+from config.config import settings
+from model.pipeline.preparation import process_features
 
 app = FastAPI()
 # To test inference API
@@ -113,7 +113,7 @@ def process_input(data: TaxFilingInput):
     """
     df = pd.DataFrame([data.model_dump()])
     df = process_features(df)
-    logger.info(f"Processed input data")
+    # logger.info(f"Processed input data")
     return df
 
 @app.get("/")
