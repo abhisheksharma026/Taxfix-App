@@ -20,6 +20,8 @@ Classes:
 """
 
 import joblib
+import traceback
+import sys
 
 from pydantic import BaseModel, conint, confloat, constr
 import pandas as pd
@@ -28,6 +30,10 @@ from fastapi import FastAPI, HTTPException
 
 from src.config.config import settings
 from src.model.pipeline.preparation import process_features
+
+logger.remove()
+logger.add(sys.stdout, level="DEBUG")  # Log to GitHub Actions console
+logger.add("app.log", rotation="1 MB", level="DEBUG", enqueue=True, backtrace=True, diagnose=True)
 
 app = FastAPI()
 # To test inference API
@@ -162,5 +168,5 @@ async def predict(input_data: TaxFilingInput):
         prediction = model.predict(processed_input)[0]
         return {"completed_filing": int(prediction)}
     except Exception as e:
-        logger.error(f"Error during prediction: {e}")
+        logger.error(f"Error during prediction: {e}\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail="Prediction failed")
