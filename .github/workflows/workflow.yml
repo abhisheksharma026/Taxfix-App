@@ -37,7 +37,7 @@ jobs:
 
       - name: Wait for FastAPI to start
         run: |
-          for i in {1..3}; do
+          for i in {1..5}; do
             if docker exec taxfix-container curl -s http://127.0.0.1:8000/health | grep "API is running"; then
               echo "FastAPI is up!"
               exit 0
