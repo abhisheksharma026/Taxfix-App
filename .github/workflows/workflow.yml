@@ -56,6 +56,9 @@ jobs:
       #   run: |
       #     docker run -d -p 8000:8000 taxfix-app
 
+      - name: Debug Model Path
+        run: ls -R src/model/models || echo "Model directory not found"
+
       - name: Start FastAPI server
         run: |
           nohup poetry run uvicorn src.inference:app --host 127.0.0.1 --port 8000 --workers 1 > fastapi.log 2>&1 &
@@ -79,4 +82,15 @@ jobs:
 
       - name: Test FastAPI endpoint
         run: |
-          curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d @src/test_input.json
+          curl -X POST "http://127.0.0.1:8000/predict" \
+          -H "Content-Type: application/json" \
+          -d @src/test_input.json
+
+      - name: Show FastAPI Logs
+        run: cat app.log || echo "No logs found"
+
+      - name: Upload FastAPI Logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: fastapi-logs
+          path: app.log

@@ -53,14 +53,6 @@ def load_model():
         HTTPException: If the model fails to load.
     """
 
-    # try:
-    #     model = joblib.load(settings.model_path)
-    #     return model
-    # except Exception as e:
-    #     logger.error(f"Error loading model: {e}")
-    #     raise HTTPException(status_code=500, detail="Model loading failed")
-
-    # return joblib.load(settings.model_path)
     try:
         if not os.path.exists(settings.model_path):
             logger.error(f"Model file not found at {settings.model_path}")
