@@ -14,83 +14,57 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # services:
-    #   docker:
-    #     image: docker:19.03.12
-    #     options: --privileged
-    #     ports:
-    #       - 8000:8000
-
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.11
-
-      - name: Install Poetry
+      - name: Set up Docker
         run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo 'export PATH="$HOME/.local/bin:$PATH"' >> $GITHUB_ENV
+          docker --version
+          docker-compose --version || echo "Docker Compose not installed"
 
-      - name: Install dependencies
+      - name: Build Docker image
         run: |
-          poetry install --no-root
-          poetry run make install
+          docker build -t taxfix-app .
 
-      # - name: Lint with flake8
-      #   run: |
-      #     poetry run flake8 .
-
-      # - name: Run tests
-      #   run: |
-      #     poetry run pytest
-
-      # - name: Build Docker image
-      #   run: |
-      #     docker build -t taxfix-app .
-
-      # - name: Run Docker container
-      #   run: |
-      #     docker run -d -p 8000:8000 taxfix-app
-
-      - name: Debug Model Path
-        run: ls -R src/model/models || echo "Model directory not found"
-
-      - name: Start FastAPI server
+      - name: Run Docker container
         run: |
-          nohup poetry run uvicorn src.inference:app --host 127.0.0.1 --port 8000 --workers 1 > fastapi.log 2>&1 &
-          sleep 10
+          docker run -d --name taxfix-container -p 8000:8000 taxfix-app
 
-      - name: Debug FastAPI logs (if failing)
-        run: cat fastapi.log || echo "No logs found"
+      - name: Debug Model Path Inside Container
+        run: |
+          docker exec taxfix-container ls -R /app/src/model/models || echo "Model directory not found inside container"
 
       - name: Wait for FastAPI to start
         run: |
-          for i in {1..5}; do
-            if curl -s http://127.0.0.1:8000/health | grep "API is running"; then
+          for i in {1..3}; do
+            if docker exec taxfix-container curl -s http://127.0.0.1:8000/health | grep "API is running"; then
               echo "FastAPI is up!"
               exit 0
             fi
             echo "Waiting for FastAPI... Attempt $i"
-            sleep 10
+            sleep 20
           done
           echo "FastAPI did not start in time!"
+          docker logs taxfix-container
           exit 1
 
       - name: Test FastAPI endpoint
         run: |
-          curl -X POST "http://127.0.0.1:8000/predict" \
+          docker exec taxfix-container curl -X POST "http://127.0.0.1:8000/predict" \
           -H "Content-Type: application/json" \
-          -d @src/test_input.json
+          -d @/app/src/test_input.json
 
       - name: Show FastAPI Logs
-        run: cat app.log || echo "No logs found"
+        run: docker logs taxfix-container || echo "No logs found"
 
       - name: Upload FastAPI Logs
         uses: actions/upload-artifact@v4
         with:
           name: fastapi-logs
           path: app.log
+
+      - name: Cleanup Docker
+        run: |
+          docker stop taxfix-container
+          docker rm taxfix-container
