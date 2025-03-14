@@ -8,4 +8,4 @@ services:
     volumes:
       - .:/app
     environment:
-      - MODEL_PATH=/app/models/catboost_model_v1.pkl
+      - MODEL_PATH=/app/src/model/models/catboost_model_v1.pkl

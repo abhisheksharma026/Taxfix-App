@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     """
 
     model_config = SettingsConfigDict(env_file="config/.env", env_file_encoding="utf-8")
-    model_dir: DirectoryPath = "model/models"
+    model_dir: DirectoryPath = "src/model/models"
     model_filename: str = "catboost_model_v1.pkl"
     model_path: str = os.path.join(model_dir, model_filename)
     data_path: str = "data/dataset.csv"

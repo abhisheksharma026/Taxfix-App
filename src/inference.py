@@ -26,8 +26,8 @@ import pandas as pd
 from loguru import logger
 from fastapi import FastAPI, HTTPException
 
-from config.config import settings
-from model.pipeline.preparation import process_features
+from src.config.config import settings
+from src.model.pipeline.preparation import process_features
 
 app = FastAPI()
 # To test inference API
