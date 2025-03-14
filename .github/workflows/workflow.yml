@@ -56,16 +56,26 @@ jobs:
       #   run: |
       #     docker run -d -p 8000:8000 taxfix-app
 
+      - name: Start FastAPI server
+        run: |
+          nohup poetry run uvicorn src.inference:app --host 127.0.0.1 --port 8000 --workers 1 > fastapi.log 2>&1 &
+          sleep 10
+
+      - name: Debug FastAPI logs (if failing)
+        run: cat fastapi.log || echo "No logs found"
+
       - name: Wait for FastAPI to start
         run: |
-          for i in {1..3}; do
+          for i in {1..5}; do
             if curl -s http://127.0.0.1:8000/health | grep "API is running"; then
               echo "FastAPI is up!"
-              break
+              exit 0
             fi
-            echo "Waiting for FastAPI..."
-            sleep 30
+            echo "Waiting for FastAPI... Attempt $i"
+            sleep 10
           done
+          echo "FastAPI did not start in time!"
+          exit 1
 
       - name: Test FastAPI endpoint
         run: |
