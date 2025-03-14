@@ -40,22 +40,9 @@ jobs:
           docker ps -a
           docker logs taxfix-container
 
-      - name: Wait for FastAPI to start
-        run: |
-          for i in {1..10}; do
-            if docker exec taxfix-container curl -s http://0.0.0.0:8000/health | grep "API is running"; then
-              echo "FastAPI is up!"
-              exit 0
-            fi
-            echo "Waiting for FastAPI... Attempt $i"
-            sleep 20
-          done
-          echo "FastAPI did not start in time!"
-          docker logs taxfix-container
-          exit 1
-
       - name: Test FastAPI endpoint
         run: |
+          sleep 30
           docker exec taxfix-container curl -X POST "http://127.0.0.1:8000/predict" \
           -H "Content-Type: application/json" \
           -d @/app/src/test_input.json
