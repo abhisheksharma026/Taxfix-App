@@ -36,7 +36,9 @@ jobs:
           echo 'export PATH="$HOME/.local/bin:$PATH"' >> $GITHUB_ENV
 
       - name: Install dependencies
-        run: poetry run make install
+        run: |
+          poetry install --no-root
+          poetry run make install
 
       # - name: Lint with flake8
       #   run: |
@@ -54,7 +56,17 @@ jobs:
       #   run: |
       #     docker run -d -p 8000:8000 taxfix-app
 
+      - name: Wait for FastAPI to start
+        run: |
+          for i in {1..3}; do
+            if curl -s http://127.0.0.1:8000/health | grep "API is running"; then
+              echo "FastAPI is up!"
+              break
+            fi
+            echo "Waiting for FastAPI..."
+            sleep 30
+          done
+
       - name: Test FastAPI endpoint
         run: |
-          sleep 30  # Wait for the server to start
           curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d @src/test_input.json

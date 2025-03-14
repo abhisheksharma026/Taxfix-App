@@ -31,7 +31,7 @@ from src.model.pipeline.preparation import process_features
 
 app = FastAPI()
 # To test inference API
-# poetry run uvicorn inference:app --reload
+# poetry run uvicorn src.inference:app --reload
 # curl -X POST "http://127.0.0.1:8000/predict" -H "Content-Type: application/json" -d @test_input.json
 
 
