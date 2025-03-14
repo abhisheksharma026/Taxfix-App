@@ -14,7 +14,7 @@ Variables:
 
 import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import DirectoryPath
+# from pydantic import DirectoryPath
 from sqlalchemy import create_engine
 
 
@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     """
 
     model_config = SettingsConfigDict(env_file="config/.env", env_file_encoding="utf-8")
-    model_dir: DirectoryPath = "src/model/models"
+    model_dir: str = "src/model/models"
     model_filename: str = "catboost_model_v1.pkl"
     model_path: str = os.path.join(model_dir, model_filename)
     data_path: str = "data/dataset.csv"
